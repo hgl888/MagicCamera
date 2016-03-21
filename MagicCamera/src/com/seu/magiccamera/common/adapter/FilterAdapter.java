@@ -42,27 +42,27 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterHold
 	}
 	
 	@Override
-	public void onBindViewHolder(FilterHolder arg0, final int arg1) {
+	public void onBindViewHolder(FilterHolder filterHolder, final int arg1) {
 		if(filterInfos.get(arg1).getFilterType() != -1){
-			arg0.thumbImage.setImageResource(FilterTypeHelper.FilterType2Thumb(filterInfos.get(arg1).getFilterType()));  
-			arg0.filterName.setText(FilterTypeHelper.FilterType2Name(filterInfos.get(arg1).getFilterType())); 
-			arg0.filterName.setBackgroundColor(context.getResources().getColor(
+			filterHolder.thumbImage.setImageResource(FilterTypeHelper.FilterType2Thumb(filterInfos.get(arg1).getFilterType()));  
+			filterHolder.filterName.setText(FilterTypeHelper.FilterType2Name(filterInfos.get(arg1).getFilterType())); 
+			filterHolder.filterName.setBackgroundColor(context.getResources().getColor(
 					FilterTypeHelper.FilterType2Color(filterInfos.get(arg1).getFilterType())));
 			if(filterInfos.get(arg1).isSelected()){
-				arg0.thumbSelected.setVisibility(View.VISIBLE);
-				arg0.thumbSelected_bg.setBackgroundColor(context.getResources().getColor(
+				filterHolder.thumbSelected.setVisibility(View.VISIBLE);
+				filterHolder.thumbSelected_bg.setBackgroundColor(context.getResources().getColor(
 						FilterTypeHelper.FilterType2Color(filterInfos.get(arg1).getFilterType())));
-				arg0.thumbSelected_bg.setAlpha(0.7f);
+				filterHolder.thumbSelected_bg.setAlpha(0.7f);
 			}
 			else
-				arg0.thumbSelected.setVisibility(View.GONE);
+				filterHolder.thumbSelected.setVisibility(View.GONE);
 			
 			if(!filterInfos.get(arg1).isFavourite() || arg1 == 0)
-				arg0.filterFavourite.setVisibility(View.GONE);
+				filterHolder.filterFavourite.setVisibility(View.GONE);
 			else
-				arg0.filterFavourite.setVisibility(View.VISIBLE);
+				filterHolder.filterFavourite.setVisibility(View.VISIBLE);
 			
-			arg0.filterRoot.setOnClickListener(new OnClickListener() {
+			filterHolder.filterRoot.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {

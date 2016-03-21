@@ -21,44 +21,44 @@ import com.seu.magicfilter.utils.TextureRotationUtil;
 
 public abstract class MagicDisplay implements Renderer{
 	/**
-	 * ËùÑ¡ÔñµÄÂË¾µ£¬ÀàĞÍÎªMagicBaseGroupFilter
-	 * 1.mCameraInputFilter½«SurfaceTextureÖĞYUVÊı¾İ»æÖÆµ½FrameBuffer
-	 * 2.mFilters½«FrameBufferÖĞµÄÎÆÀí»æÖÆµ½ÆÁÄ»ÖĞ
+	 * æ‰€é€‰æ‹©çš„æ»¤é•œï¼Œç±»å‹ä¸ºMagicBaseGroupFilter
+	 * 1.mCameraInputFilterå°†SurfaceTextureä¸­YUVæ•°æ®ç»˜åˆ¶åˆ°FrameBuffer
+	 * 2.mFilterså°†FrameBufferä¸­çš„çº¹ç†ç»˜åˆ¶åˆ°å±å¹•ä¸­
 	 */
 	protected GPUImageFilter mFilters;
 	
 	/**
-	 * ËùÓĞÔ¤ÀÀÊı¾İ»æÖÆ»­Ãæ
+	 * æ‰€æœ‰é¢„è§ˆæ•°æ®ç»˜åˆ¶ç”»é¢
 	 */
 	protected final GLSurfaceView mGLSurfaceView;
 	
 	/**
-	 * SurfaceTexureÎÆÀíid
+	 * SurfaceTexureçº¹ç†id
 	 */
 	protected int mTextureId = OpenGLUtils.NO_TEXTURE;
 	
 	/**
-	 * ¶¥µã×ø±ê
+	 * é¡¶ç‚¹åæ ‡
 	 */
 	protected final FloatBuffer mGLCubeBuffer;
 	
 	/**
-	 * ÎÆÀí×ø±ê
+	 * çº¹ç†åæ ‡
 	 */
 	protected final FloatBuffer mGLTextureBuffer;
 	
 	/**
-	 * ÅÄÕÕ±£´æ
+	 * æ‹ç…§ä¿å­˜
 	 */
 	protected SaveTask mSaveTask;
 	
 	/**
-	 * GLSurfaceViewµÄ¿í¸ß
+	 * GLSurfaceViewçš„å®½é«˜
 	 */
 	protected int mSurfaceWidth, mSurfaceHeight;
 	
 	/**
-	 * Í¼Ïñ¿í¸ß
+	 * å›¾åƒå®½é«˜
 	 */
 	protected int mImageWidth, mImageHeight;
 	
@@ -89,8 +89,8 @@ public abstract class MagicDisplay implements Renderer{
 	}
 	
 	/**
-	 * ÉèÖÃÂË¾µ
-	 * @param ²ÎÊıÀàĞÍ
+	 * è®¾ç½®æ»¤é•œ
+	 * @param å‚æ•°ç±»å‹
 	 */
 	public void setFilter(final int filterType) {
 		mGLSurfaceView.queueEvent(new Runnable() {

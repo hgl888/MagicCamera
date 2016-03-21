@@ -103,7 +103,7 @@ public class GPUImageFilter {
     }
 
     protected void onInitialized() {
-    	setFloat(mGLStrengthLocation, 1.0f);
+    		setFloat(mGLStrengthLocation, 1.0f);
     }
 
     public final void destroy() {

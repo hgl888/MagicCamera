@@ -4,10 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.seu.magiccamera.activity.CameraActivity" >
 
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
     <android.opengl.GLSurfaceView
         android:id="@+id/glsurfaceview_camera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>    
+        android:layout_height="match_parent"/>
+    <org.yanzi.ui.FaceView
+        android:id="@+id/face_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+        
+    
+   </FrameLayout>   
         
 	<RelativeLayout 
 	    android:layout_width="match_parent"

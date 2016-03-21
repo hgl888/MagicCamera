@@ -4,13 +4,22 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.hardware.Camera.Face;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
+
+import org.yanzi.mode.GoogleFaceDetect;
+import org.yanzi.ui.FaceView;
+import org.yanzi.util.EventUtil;
+
 import com.seu.magiccamera.R;
 import com.seu.magiccamera.common.utils.Constants;
 import com.seu.magiccamera.common.view.FilterLayoutUtils;
@@ -19,14 +28,41 @@ import com.seu.magicfilter.display.MagicCameraDisplay;
 public class CameraActivity extends Activity{
 	private MagicCameraDisplay mMagicCameraDisplay;
 	private LinearLayout mFilterLayout;
+	private GoogleFaceDetect googleFaceDetect = null;
+	private MainHandler mMainHandler = null;
+	private FaceView faceView;
+	
+	private class MainHandler extends Handler{
+		@Override
+		public void handleMessage( Message msg ){
+			switch( msg.what ){
+			case EventUtil.UPDATE_FACE_RECT:
+				Face [] faces = (Face[])msg.obj;
+				faceView.setFaces(faces);
+				break;
+			case EventUtil.CAMERA_HAS_STARTED_PREVIEW:
+				mMagicCameraDisplay.startFaceDetect(googleFaceDetect);
+				faceView.clearFaces();
+				faceView.setVisibility(View.VISIBLE);
+				break;
+			}
+			super.handleMessage(msg);
+			
+		}
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
 		
+		faceView = (FaceView)findViewById(R.id.face_view );
 		initMagicPreview();
 		initFilterLayout();
+		
+		mMainHandler = new MainHandler();
+	    googleFaceDetect = new GoogleFaceDetect( this.getApplicationContext(), mMainHandler );
 	}
 	
 	private void initFilterLayout(){
@@ -58,7 +94,10 @@ public class CameraActivity extends Activity{
 	protected void onResume() {
 		super.onResume();
 		if(mMagicCameraDisplay != null)
+		{
 			mMagicCameraDisplay.onResume();
+			mMainHandler.sendEmptyMessageDelayed(EventUtil.CAMERA_HAS_STARTED_PREVIEW, 1500);
+		}
 	}
 	
 	@Override
