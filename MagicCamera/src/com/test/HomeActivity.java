@@ -16,7 +16,6 @@ import com.seu.magiccamera.R;
 
 public class HomeActivity extends ActionBarActivity
 {
-
     private RecyclerView mRecyclerView;
     private List<String> mDatas;
     private HomeAdapter mAdapter;

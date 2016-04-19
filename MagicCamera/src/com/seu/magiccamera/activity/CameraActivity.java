@@ -41,7 +41,8 @@ public class CameraActivity extends Activity{
 				faceView.setFaces(faces);
 				break;
 			case EventUtil.CAMERA_HAS_STARTED_PREVIEW:
-				mMagicCameraDisplay.startFaceDetect(googleFaceDetect);
+				//mMagicCameraDisplay.startFaceDetect(googleFaceDetect);
+				
 				faceView.clearFaces();
 				faceView.setVisibility(View.VISIBLE);
 				break;
