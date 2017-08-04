@@ -235,6 +235,30 @@ public class OpenGlUtils {
 		return body.toString();
 	}
 
+	public static String readShaderFromRawResource(final Context context,
+												   final int resourceId){
+		final InputStream inputStream = context.getResources().openRawResource(
+				resourceId);
+		final InputStreamReader inputStreamReader = new InputStreamReader(
+				inputStream);
+		final BufferedReader bufferedReader = new BufferedReader(
+				inputStreamReader);
+
+		String nextLine;
+		final StringBuilder body = new StringBuilder();
+
+		try{
+			while ((nextLine = bufferedReader.readLine()) != null){
+				body.append(nextLine);
+				body.append('\n');
+			}
+		}
+		catch (IOException e){
+			return null;
+		}
+		return body.toString();
+	}
+
 	public static Bitmap drawToBitmapByFilter(Bitmap bitmap, GPUImageFilter filter,
             int displayWidth, int displayHeight){
 		if(filter == null)
