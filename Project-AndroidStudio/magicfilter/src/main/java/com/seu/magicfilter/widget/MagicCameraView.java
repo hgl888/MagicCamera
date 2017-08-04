@@ -1,5 +1,6 @@
 package com.seu.magicfilter.widget;
 
+import android.Manifest;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.opengl.GLES20;
 import android.os.Environment;
 import android.util.AttributeSet;
 
+import com.seu.magicfilter.PermissionUtils;
 import com.seu.magicfilter.camera.CameraEngine;
 import com.seu.magicfilter.camera.utils.CameraInfo;
 import com.seu.magicfilter.filter.base.MagicCameraInputFilter;
@@ -35,6 +37,7 @@ public class MagicCameraView extends MagicBaseView {
     private final MagicCameraInputFilter cameraInputFilter;
 
     private SurfaceTexture surfaceTexture;
+    private Context mContext;
 
     public MagicCameraView(Context context) {
         this(context, null);
@@ -51,6 +54,7 @@ public class MagicCameraView extends MagicBaseView {
 
     public MagicCameraView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         outputFile = new File(Environment.getExternalStorageDirectory().getPath(),"test.mp4");
         cameraInputFilter = new MagicCameraInputFilter();
         recordingStatus = -1;

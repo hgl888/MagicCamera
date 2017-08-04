@@ -1,15 +1,17 @@
-package com.seu.magiccamera;
+package com.seu.magicfilter;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.seu.magicfilter.MagicEngine;
 import com.seu.magicfilter.filter.helper.MagicFilterType;
 import com.seu.magicfilter.widget.MagicCameraView;
 
@@ -81,13 +83,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        magicEngine.onResume();
+        if(PermissionUtils.checkPermission( MainActivity.this,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},200))
+        {
+            magicEngine.onResume();
+        }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         magicEngine.onPause();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 ) {
+
+            for (int result:grantResults){
+                if(result!= PackageManager.PERMISSION_GRANTED)
+                    return;
+            }
+            switch (requestCode){
+                case 200:
+//                    takePhoto();
+                    break;
+            }
+        } else {
+            Toast.makeText(this, "该功能需要相机和读写文件权限", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private final String[] filters = new String[]{"NONE",
